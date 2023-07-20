@@ -118,7 +118,7 @@
                               <div class="error_message">{{ bot.error_message }}</div>
                             </div>
                             <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                              <button type="button" class="btn btn-secondary" @click="refresh_bots()" data-bs-dismiss="modal">取消</button>
                               <button type="button" class="btn btn-primary" @click="update_bot(bot)">保存并修改</button>
                             </div>
                           </div>
@@ -261,6 +261,7 @@ export default {
       add_bot,
       remove_bot,
       update_bot,
+      refresh_bots,
     }
   }
 
