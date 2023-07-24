@@ -59,10 +59,6 @@ export class Snake extends GameObject{
         this.status="move";
         this.step++;
 
-        if(!this.gamemap.check_vaild(this.next_cell)){  //下一步走到非法位置，蛇直接去世
-            this.status="die";
-        }
-
         //将蛇的身体向后移动一格
         const k=this.cells.length;
         for(let i=k;i>0;i--){
