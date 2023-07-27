@@ -166,7 +166,15 @@ export default {
     const botadd=reactive({
       title:'',
       description:'',
-      content:'',
+      content:'package com.kob.utils;\n' +
+          '\n' +
+          'public class Bot implements com.kob.utils.BotInterface{\n' +
+          '    @Override\n' +
+          '    //请实现以下函数,input表示局面信息\n' +
+          '    public Integer nextMove(String input) {\n' +
+          '        return 0;\n' +
+          '    }\n' +
+          '}',
       error_message:'',
     });
 

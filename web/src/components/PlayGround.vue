@@ -6,10 +6,18 @@
 
 <script>
 import GameMap from './GameMap.vue'
+import {onUnmounted} from "vue";
+import {useStore} from "vuex";
 
 export default {
   components:{
     GameMap,
+  },
+  setup(){
+    const store=useStore();
+    onUnmounted(()=>{
+      store.commit("updateLoser","none");
+    })
   }
 }
 </script>

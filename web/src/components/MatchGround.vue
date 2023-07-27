@@ -26,7 +26,18 @@
         </div>
       </div>
 
-      <div class="col-12" style="text-align: center ;padding-top: 15vh">
+      <div class="col-4">
+        <div class="user-select-bot">
+          <select v-model="select_bot" class="form-select" aria-label="Default select example">
+            <option value="-1" selected>我亲自出马</option>
+            <option v-for="bot in bots" :key="bot.id" :value="bot.id">
+              {{bot.title}}
+            </option>
+          </select>
+        </div>
+
+      </div>
+      <div class="col-12" style="text-align: center ;padding-top: 10vh">
         <button @click="click_match_btn" type="button" class="btn btn-primary btn-lg">{{ match_btn_info }}</button>
       </div>
 
@@ -37,17 +48,22 @@
 <script>
 import {ref} from "vue";
 import {useStore} from 'vuex'
+import $ from "jquery";
 
 export default {
   setup(){
     let match_btn_info=ref('开始匹配');
     const store=useStore();
+    let bots=ref([]);
+    let select_bot=ref('-1');
 
     const click_match_btn=()=>{
       if(match_btn_info.value==='开始匹配') {
         match_btn_info.value = '取消';
+        console.log(select_bot.value);
         store.state.pk.socket.send(JSON.stringify({
           event:"start-matching",
+          bot_id:select_bot.value,
         }));
       }else{
         match_btn_info.value='开始匹配';
@@ -57,9 +73,26 @@ export default {
       }
     }
 
+    const refresh_bots =()=>{
+      $.ajax({
+        url:'http://127.0.0.1:8088/user/bot/getlist/',
+        type:'get',
+        headers:{
+          Authorization: "Bearer "+store.state.user.token,
+        },
+        success(resp){
+          bots.value=resp;
+        }
+      })
+    }
+
+    refresh_bots();
+
     return{
       match_btn_info,
       click_match_btn,
+      bots,
+      select_bot,
     }
   }
 }
@@ -93,5 +126,12 @@ div.user_name{
   font-weight: 600;
   color:white;
   padding-top: 2vh;
+}
+div.user-select-bot{
+  padding-top: 5vh;
+}
+div.user-select-bot > select{
+  width: 60%;
+  margin:0 auto;
 }
 </style>

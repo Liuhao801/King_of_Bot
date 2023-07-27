@@ -24,10 +24,10 @@ public class MatchingPool extends Thread{
         MatchingPool.restTemplate=restTemplate;
     }
 
-    public void addPlayer(Integer user_id,Integer rating){
+    public void addPlayer(Integer userId,Integer rating,Integer botId){
         lock.lock();
         try {
-            players.add(new Player(user_id,rating,0));
+            players.add(new Player(userId,rating,botId,0));
         }finally {
             lock.unlock();
         }
@@ -38,7 +38,7 @@ public class MatchingPool extends Thread{
         try {
             List<Player>newPlayers=new ArrayList<>();
             for(Player player:players){
-                if(!player.getUser_id().equals(user_id)){
+                if(!player.getUserId().equals(user_id)){
                     newPlayers.add(player);
                 }
             }
@@ -61,10 +61,12 @@ public class MatchingPool extends Thread{
     }
 
     private void sendResult(Player a,Player b){  //返回a和b作为匹配结果
-        System.out.println("send result: "+a.getUser_id()+" "+b.getUser_id());
+        System.out.println("send result: "+a.getUserId()+" "+b.getUserId());
         MultiValueMap<String,String>data=new LinkedMultiValueMap<>();
-        data.add("a_id",a.getUser_id().toString());
-        data.add("b_id",b.getUser_id().toString());
+        data.add("a_id",a.getUserId().toString());
+        data.add("a_bot_id",a.getBotId().toString());
+        data.add("b_id",b.getUserId().toString());
+        data.add("b_bot_id",b.getBotId().toString());
         restTemplate.postForObject(startGameUrl,data,String.class);
     }
 
