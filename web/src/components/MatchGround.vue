@@ -9,6 +9,9 @@
         <div class="user_name">
           {{$store.state.user.username}}
         </div>
+        <div class="user_name">
+          积分：{{$store.state.user.rating}}
+        </div>
       </div>
 
       <div class="col-4">
@@ -23,6 +26,9 @@
         </div>
         <div class="user_name">
           {{$store.state.pk.opponent_username}}
+        </div>
+        <div class="user_name">
+          积分：{{$store.state.pk.opponent_rating}}
         </div>
       </div>
 
@@ -125,7 +131,7 @@ div.user_name{
   font-size: 24px;
   font-weight: 600;
   color:white;
-  padding-top: 2vh;
+  padding-top: 1vh;
 }
 div.user-select-bot{
   padding-top: 5vh;

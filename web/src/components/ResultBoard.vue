@@ -34,6 +34,7 @@ export default {
       store.commit("updateOpponent",{
         username:'旗鼓相当的对手',
         photo:'https://cdn.acwing.com/media/article/image/2022/08/09/1_1db2488f17-anonymous.png',
+        rating:'',
       })
     }
 

@@ -19,7 +19,7 @@
               </button>
             </div>
 
-            <!-- Modal -->
+            <!-- 创建Modal -->
             <div class="modal fade" id="add-bot-btn" tabindex="-1" >
               <div class="modal-dialog modal-dialog-centered modal-xl">
                 <div class="modal-content">
@@ -80,13 +80,14 @@
                     <td>{{bot.modifyTime}}</td>
                     <td>
                       <button type="button" class="btn btn-success" style="margin-right: 10px" data-bs-toggle="modal" :data-bs-target="'#update-bot-'+bot.id">修改</button>
-                      <button type="button" class="btn btn-danger" @click="remove_bot(bot)">删除</button>
+                      <button type="button" class="btn btn-danger" data-bs-toggle="modal" :data-bs-target="'#remove-bot-'+bot.id">删除</button>
 
+                      <!-- 修改Modal -->
                       <div class="modal fade" :id="'update-bot-'+bot.id" tabindex="-1" >
                         <div class="modal-dialog modal-dialog-centered modal-xl">
                           <div class="modal-content">
                             <div class="modal-header">
-                              <h1 class="modal-title fs-5">创建Bot</h1>
+                              <h1 class="modal-title fs-5">我的Bot</h1>
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -120,6 +121,25 @@
                             <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" @click="refresh_bots()" data-bs-dismiss="modal">取消</button>
                               <button type="button" class="btn btn-primary" @click="update_bot(bot)">保存并修改</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- 删除Modal -->
+                      <div class="modal fade" :id="'remove-bot-'+bot.id" tabindex="-1" >
+                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5">删除Bot</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              是否删除{{bot.title}}
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                              <button type="button" class="btn btn-primary" @click="remove_bot(bot)">确定</button>
                             </div>
                           </div>
                         </div>
@@ -208,7 +228,15 @@ export default {
           if(resp.error_message==='success'){
             botadd.title='';
             botadd.description='';
-            botadd.content='';
+            botadd.content='package com.kob.utils;\n' +
+                '\n' +
+                'public class Bot implements com.kob.utils.BotInterface{\n' +
+                '    @Override\n' +
+                '    //请实现以下函数,input表示局面信息\n' +
+                '    public Integer nextMove(String input) {\n' +
+                '        return 0;\n' +
+                '    }\n' +
+                '}';
             Modal.getInstance("#add-bot-btn").hide();
             refresh_bots();
           }else{
@@ -244,6 +272,7 @@ export default {
     }
 
     const remove_bot = (bot)=>{
+      console.log(bot)
       $.ajax({
         url: 'http://127.0.0.1:8088/user/bot/remove/',
         type: 'post',
@@ -254,7 +283,9 @@ export default {
           Authorization: "Bearer " + store.state.user.token,
         },
         success(resp){
+          console.log(resp)
           if(resp.error_message==='success'){
+            Modal.getInstance('#remove-bot-'+bot.id).hide();
             refresh_bots();
           }
         }

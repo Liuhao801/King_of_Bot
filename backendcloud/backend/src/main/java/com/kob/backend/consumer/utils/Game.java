@@ -4,6 +4,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.kob.backend.consumer.WebSocketServer;
 import com.kob.backend.pojo.Bot;
 import com.kob.backend.pojo.Record;
+import com.kob.backend.pojo.User;
 import org.springframework.security.core.parameters.P;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -253,7 +254,7 @@ public class Game extends Thread{
             WebSocketServer.users.get(playerB.getId()).sendMessage(message);
     }
 
-    private void sendMove(){  //发送双发这一步的操作
+    private void sendMove(){  //发送双方这一步的操作
         lock.lock();
         try {
             JSONObject resp=new JSONObject();
@@ -277,7 +278,27 @@ public class Game extends Thread{
         return res.toString();
     }
 
+    private void updateUserRating(Player player,Integer rating){
+        User user=WebSocketServer.userMapper.selectById(player.getId());
+        user.setRating(rating);
+        WebSocketServer.userMapper.updateById(user);
+    }
+
     private void saveToDatabase(){
+        Integer ratingA=WebSocketServer.userMapper.selectById(playerA.getId()).getRating();
+        Integer ratingB=WebSocketServer.userMapper.selectById(playerB.getId()).getRating();
+
+        if("A".equals(loser)){
+            ratingA-=5;
+            ratingB+=5;
+        }else if("B".equals(loser)){
+            ratingA+=5;
+            ratingB-=5;
+        }
+
+        updateUserRating(playerA,ratingA);
+        updateUserRating(playerB,ratingB);
+
         Record record=new Record(
                 null,
                 playerA.getId(),
@@ -306,6 +327,7 @@ public class Game extends Thread{
 
     @Override
     public void run() { //线程的执行入口
+
         for(int i=0;i<1000;i++){
             if(nextStep()){ //A和B都有下一步
                 judge();

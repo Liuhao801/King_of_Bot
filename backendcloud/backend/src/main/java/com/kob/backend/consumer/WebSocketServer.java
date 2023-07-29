@@ -33,7 +33,7 @@ public class WebSocketServer {
     private User user;
     private Session session=null;
 
-    private static UserMapper userMapper;
+    public static UserMapper userMapper;
     public static RecordMapper recordMapper;
     private static BotMapper botMapper;
     public static RestTemplate restTemplate;
@@ -123,6 +123,7 @@ public class WebSocketServer {
         respA.put("event","success-match");
         respA.put("opponent_username",b.getUsername());
         respA.put("opponent_photo",b.getPhoto());
+        respA.put("opponent_rating",b.getRating());
         respA.put("game",respGame);
         if(users.get(a.getId())!=null)
             users.get(a.getId()).sendMessage(respA.toString());
@@ -131,6 +132,7 @@ public class WebSocketServer {
         respB.put("event","success-match");
         respB.put("opponent_username",a.getUsername());
         respB.put("opponent_photo",a.getPhoto());
+        respB.put("opponent_rating",a.getRating());
         respB.put("game",respGame);
         if(users.get(b.getId())!=null)
             users.get(b.getId()).sendMessage(respB.toString());

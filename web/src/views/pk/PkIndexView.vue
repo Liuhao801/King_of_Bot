@@ -2,12 +2,14 @@
   <PlayGround v-if="$store.state.pk.status=== 'playing'" ></PlayGround>
   <MatchGround v-if="$store.state.pk.status=== 'matching'"></MatchGround>
   <ResultBoard v-if="$store.state.pk.loser!=='none'"></ResultBoard>
+  <UserInfoBoard v-if="$store.state.pk.status=== 'playing'"></UserInfoBoard>
 </template>
 
 <script>
 import PlayGround from '../../components/PlayGround.vue'
 import MatchGround from '../../components/MatchGround.vue'
 import ResultBoard from '../../components/ResultBoard.vue'
+import UserInfoBoard from '../../components/UserInfoBoard.vue'
 import {onMounted,onUnmounted} from 'vue'
 import {useStore} from 'vuex'
 
@@ -16,16 +18,25 @@ export default {
     PlayGround,
     MatchGround,
     ResultBoard,
+    UserInfoBoard,
   },
   setup(){
     const store=useStore();
     const socketUrl=`ws://127.0.0.1:8088/websocket/${store.state.user.token}/`;
 
+    store.commit("updateIsRecord",false);
+
     let socket=null;
     onMounted(()=>{
+      store.dispatch("getInfo",{
+        success(){
+        }
+      })
+
       store.commit("updateOpponent",{
         username:'旗鼓相当的对手',
         photo:'https://cdn.acwing.com/media/article/image/2022/08/09/1_1db2488f17-anonymous.png',
+        rating:'',
       })
 
       socket=new WebSocket(socketUrl);
@@ -42,6 +53,7 @@ export default {
           store.commit("updateOpponent",{
             username:data.opponent_username,
             photo:data.opponent_photo,
+            rating:data.opponent_rating,
           });
           setTimeout(()=>{
             store.commit("updateStatus",'playing')
