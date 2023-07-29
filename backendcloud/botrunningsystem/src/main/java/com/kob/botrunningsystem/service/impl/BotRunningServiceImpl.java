@@ -1,7 +1,7 @@
-package com.kob.service.impl;
+package com.kob.botrunningsystem.service.impl;
 
-import com.kob.service.BotRunningService;
-import com.kob.service.impl.utils.BotPool;
+import com.kob.botrunningsystem.service.BotRunningService;
+import com.kob.botrunningsystem.service.impl.utils.BotPool;
 import org.springframework.stereotype.Service;
 
 @Service

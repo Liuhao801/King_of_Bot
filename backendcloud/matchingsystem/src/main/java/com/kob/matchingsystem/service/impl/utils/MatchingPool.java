@@ -1,8 +1,6 @@
-package com.kob.service.impl.utils;
+package com.kob.matchingsystem.service.impl.utils;
 
-import com.kob.service.impl.MatchingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -71,7 +69,6 @@ public class MatchingPool extends Thread{
     }
 
     private void matchPlayers(){  //尝试匹配所有玩家
-        System.out.println("match players: "+players.toString());
         boolean[] used=new boolean[players.size()];
         for(int i=0;i<players.size();i++){
             if(used[i])continue;

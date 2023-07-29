@@ -1,4 +1,4 @@
-package com.kob.service.impl.utils;
+package com.kob.matchingsystem.service.impl.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

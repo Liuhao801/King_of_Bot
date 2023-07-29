@@ -186,21 +186,36 @@ export default {
     const botadd=reactive({
       title:'',
       description:'',
-      content:'package com.kob.utils;\n' +
+      content:'package com.kob.botrunningsystem.utils;\n' +
           '\n' +
-          'public class Bot implements com.kob.utils.BotInterface{\n' +
-          '    @Override\n' +
-          '    //请实现以下函数,input表示局面信息\n' +
+          'import java.io.File;\n' +
+          'import java.io.FileNotFoundException;\n' +
+          'import java.util.Scanner;\n' +
+          '\n' +
+          'public class Bot implements java.util.function.Supplier<Integer>{\n' +
+          '\n' +
+          '    //请实现以下函数\n' +
           '    public Integer nextMove(String input) {\n' +
           '        return 0;\n' +
           '    }\n' +
-          '}',
+          '\n' +
+          '    @Override\n' +
+          '    public Integer get() {\n' +
+          '        File file=new File("input.txt");\n' +
+          '        try {\n' +
+          '            Scanner sc=new Scanner(file);\n' +
+          '            return nextMove(sc.next());\n' +
+          '        }catch (FileNotFoundException e){\n' +
+          '            throw new RuntimeException(e);\n' +
+          '        }\n' +
+          '    }\n' +
+          '}\n',
       error_message:'',
     });
 
     const refresh_bots =()=>{
       $.ajax({
-        url:'http://127.0.0.1:8088/user/bot/getlist/',
+        url:'https://app5801.acapp.acwing.com.cn/api/user/bot/getlist/',
         type:'get',
         headers:{
           Authorization: "Bearer "+store.state.user.token,
@@ -214,7 +229,7 @@ export default {
     const add_bot =()=>{
       botadd.error_message='';
       $.ajax({
-        url:'http://127.0.0.1:8088/user/bot/add/',
+        url:'https://app5801.acapp.acwing.com.cn/api/user/bot/add/',
         type:'post',
         data:{
           title:botadd.title,
@@ -228,15 +243,30 @@ export default {
           if(resp.error_message==='success'){
             botadd.title='';
             botadd.description='';
-            botadd.content='package com.kob.utils;\n' +
+            botadd.content='package com.kob.botrunningsystem.utils;\n' +
                 '\n' +
-                'public class Bot implements com.kob.utils.BotInterface{\n' +
-                '    @Override\n' +
-                '    //请实现以下函数,input表示局面信息\n' +
+                'import java.io.File;\n' +
+                'import java.io.FileNotFoundException;\n' +
+                'import java.util.Scanner;\n' +
+                '\n' +
+                'public class Bot implements java.util.function.Supplier<Integer>{\n' +
+                '\n' +
+                '    //请实现以下函数\n' +
                 '    public Integer nextMove(String input) {\n' +
                 '        return 0;\n' +
                 '    }\n' +
-                '}';
+                '\n' +
+                '    @Override\n' +
+                '    public Integer get() {\n' +
+                '        File file=new File("input.txt");\n' +
+                '        try {\n' +
+                '            Scanner sc=new Scanner(file);\n' +
+                '            return nextMove(sc.next());\n' +
+                '        }catch (FileNotFoundException e){\n' +
+                '            throw new RuntimeException(e);\n' +
+                '        }\n' +
+                '    }\n' +
+                '}\n';
             Modal.getInstance("#add-bot-btn").hide();
             refresh_bots();
           }else{
@@ -249,7 +279,7 @@ export default {
     const update_bot =(bot)=>{
       botadd.error_message='';
       $.ajax({
-        url:'http://127.0.0.1:8088/user/bot/update/',
+        url:'https://app5801.acapp.acwing.com.cn/api/user/bot/update/',
         type:'post',
         data:{
           bot_id:bot.id,
@@ -274,7 +304,7 @@ export default {
     const remove_bot = (bot)=>{
       console.log(bot)
       $.ajax({
-        url: 'http://127.0.0.1:8088/user/bot/remove/',
+        url: 'https://app5801.acapp.acwing.com.cn/api/user/bot/remove/',
         type: 'post',
         data: {
           bot_id: bot.id,

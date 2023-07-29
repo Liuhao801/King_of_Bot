@@ -1,6 +1,6 @@
-package com.kob.controller;
+package com.kob.matchingsystem.controller;
 
-import com.kob.service.MatchingService;
+import com.kob.matchingsystem.service.MatchingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PostMapping;

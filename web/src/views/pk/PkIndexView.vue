@@ -22,7 +22,7 @@ export default {
   },
   setup(){
     const store=useStore();
-    const socketUrl=`ws://127.0.0.1:8088/websocket/${store.state.user.token}/`;
+    const socketUrl=`wss://app5801.acapp.acwing.com.cn/websocket/${store.state.user.token}/`;
 
     store.commit("updateIsRecord",false);
 
