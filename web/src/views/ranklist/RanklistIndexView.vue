@@ -15,7 +15,12 @@
           <span class="user-name">{{user.username}}</span>
         </td>
         <td>
-          <span>{{user.rating}}</span>
+          <div class="rank_rating">
+            <span v-if="is_first_page() && user.id===users[0].id" style="color:gold">{{user.rating}}</span>
+            <span v-else-if="is_first_page() && user.id===users[1].id" style="color:silver">{{user.rating}}</span>
+            <span v-else-if="is_first_page() && user.id===users[2].id" style="color: #DA7F64">{{user.rating}}</span>
+            <span v-else style="font-weight: 600">{{user.rating}}</span>
+          </div>
         </td>
       </tr>
       </tbody>
@@ -55,8 +60,8 @@ export default {
   setup(){
     const store=useStore();
     let current_page=1;
-    let users=ref([]);
     let total_user=0;
+    let users=ref([]);
     let pages=ref([]);
 
     const update_pages=()=>{
@@ -105,12 +110,17 @@ export default {
       })
     }
 
+    const is_first_page= ()=>{
+      return current_page===1;
+    }
+
     pull_page(current_page);
 
     return{
       users,
       pages,
       click_page,
+      is_first_page,
     }
   }
 }
@@ -120,5 +130,8 @@ export default {
 img.user-photo{
   width: 8vh;
   border-radius: 50%;
+}
+div.rank_rating{
+  font-weight: 600;
 }
 </style>

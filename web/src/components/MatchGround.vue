@@ -43,8 +43,11 @@
         </div>
 
       </div>
-      <div class="col-12" style="text-align: center ;padding-top: 10vh">
-        <button @click="click_match_btn" type="button" class="btn btn-primary btn-lg">{{ match_btn_info }}</button>
+      <div class="col-12">
+        <div class="match_btn">
+          <button @click="click_match_btn" type="button" class="btn btn-primary btn-lg">{{ match_btn_info }}</button>
+        </div>
+
       </div>
 
     </div>
@@ -117,27 +120,36 @@ div.user_photo{
 }
 div.user_photo>img{
   border-radius: 50%;
-  width:25vh;
+  width:15vw;
 }
 div.pk_photo{
   text-align: center;
-  padding-top: 8vh;
+  padding-top: 10vh;
 }
 div.pk_photo>img{
-  width:40vh;
+  width:20vw;
 }
 div.user_name{
   text-align: center;
-  font-size: 24px;
+  font-size: 4vmin;
   font-weight: 600;
   color:white;
   padding-top: 1vh;
 }
 div.user-select-bot{
-  padding-top: 5vh;
+  padding-top: 3vh;
 }
 div.user-select-bot > select{
   width: 60%;
+  font-size: 3vmin;
   margin:0 auto;
+}
+div.match_btn{
+  text-align: center ;
+  padding-top: 5vh;
+}
+div.match_btn>button{
+  width: 15vw;
+  font-size: 3vmin;
 }
 </style>

@@ -19,9 +19,9 @@
           <span class="record-user-name">{{record.a_username}}</span>
         </td>
         <td>
-          <span style="color: red" v-if="record.record.loser ==='A'">负</span>
-          <span style="color: green" v-else-if="record.record.loser ==='B'">胜</span>
-          <span v-else>平局</span>
+          <span style="color: red;font-weight: 600" v-if="record.record.loser ==='A'">负</span>
+          <span style="color: green;font-weight: 600" v-else-if="record.record.loser ==='B'">胜</span>
+          <span v-else style="font-weight: 600">平局</span>
         </td>
         <td>
           <img :src="record.b_photo" alt="" class="record-user-photo">
@@ -29,9 +29,9 @@
           <span class="record-user-name">{{record.b_username}}</span>
         </td>
         <td>
-          <span style="color: red" v-if="record.record.loser ==='B'">负</span>
-          <span style="color: green" v-else-if="record.record.loser ==='A'">胜</span>
-          <span v-else>平局</span>
+          <span style="color: red;font-weight: 600" v-if="record.record.loser ==='B'">负</span>
+          <span style="color: green;font-weight: 600" v-else-if="record.record.loser ==='A'">胜</span>
+          <span v-else style="font-weight: 600">平局</span>
         </td>
         <td>
           <span>{{record.record.createTime}}</span>

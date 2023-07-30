@@ -40,7 +40,7 @@
                       </div>
                       <div class="mb-3">
                         <label class="form-label">代码</label>
-                        <VAceEditor v-model:value="botadd.content" @init="editorInit" lang="c_cpp"
+                        <VAceEditor v-model:value="botadd.content" @init="editorInit" lang="java"
                                     theme="textmate" style="height: 300px" :options="{
                                                     enableBasicAutocompletion: true, //启用基本自动完成
                                                     enableSnippets: true, // 启用代码段
@@ -103,7 +103,7 @@
                                 </div>
                                 <div class="mb-3">
                                   <label class="form-label">代码</label>
-                                  <VAceEditor v-model:value="bot.content" @init="editorInit" lang="c_cpp"
+                                  <VAceEditor v-model:value="bot.content" @init="editorInit" lang="java"
                                               theme="textmate" style="height: 300px" :options="{
                                                         enableBasicAutocompletion: true, //启用基本自动完成
                                                         enableSnippets: true, // 启用代码段
@@ -165,7 +165,7 @@ import {useStore} from 'vuex'
 import {Modal} from 'bootstrap/dist/js/bootstrap'
 import { VAceEditor } from 'vue3-ace-editor';
 import ace from 'ace-builds';
-import 'ace-builds/src-noconflict/mode-c_cpp';
+import 'ace-builds/src-noconflict/mode-java';
 import 'ace-builds/src-noconflict/mode-json';
 import 'ace-builds/src-noconflict/theme-chrome';
 import 'ace-builds/src-noconflict/ext-language_tools';
