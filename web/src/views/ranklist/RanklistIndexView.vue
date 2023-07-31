@@ -14,13 +14,11 @@
           &nbsp;&nbsp;
           <span class="user-name">{{user.username}}</span>
         </td>
-        <td>
-          <div class="rank_rating">
-            <span v-if="is_first_page() && user.id===users[0].id" style="color:gold">{{user.rating}}</span>
-            <span v-else-if="is_first_page() && user.id===users[1].id" style="color:silver">{{user.rating}}</span>
-            <span v-else-if="is_first_page() && user.id===users[2].id" style="color: #DA7F64">{{user.rating}}</span>
+        <td class="rank_rating">
+            <span v-if="is_first_page() && user.id===users[0].id" style="color: #FAC32A">{{user.rating}}</span>
+            <span v-else-if="is_first_page() && user.id===users[1].id" style="color:#798899">{{user.rating}}</span>
+            <span v-else-if="is_first_page() && user.id===users[2].id" style="color: #ba6e40">{{user.rating}}</span>
             <span v-else style="font-weight: 600">{{user.rating}}</span>
-          </div>
         </td>
       </tr>
       </tbody>
@@ -99,14 +97,10 @@ export default {
           Authorization: "Bearer "+store.state.user.token,
         },
         success(resp){
-          console.log(resp);
           users.value=resp.users;
           total_user=resp.users_count;
           update_pages();
         },
-        error(resp){
-          console.log(resp);
-        }
       })
     }
 
@@ -131,7 +125,7 @@ img.user-photo{
   width: 8vh;
   border-radius: 50%;
 }
-div.rank_rating{
+.rank_rating{
   font-weight: 600;
 }
 </style>

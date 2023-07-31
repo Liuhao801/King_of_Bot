@@ -14,7 +14,7 @@
     </div>
 
     <div class="result-board-btn">
-      <button @click="restart" type="button" class="btn btn-primary btn-lg">
+      <button @click="restart" type="button">
         再来一局
       </button>
     </div>
@@ -51,8 +51,11 @@ div.result-board{
   width: 28vw;
   background-color: rgba(50,50,50,0.5);
   position: absolute;
-  top:30vh;
-  left: 36vw;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
 }
 div.result-board-text{
   text-align: center;
@@ -64,5 +67,18 @@ div.result-board-text{
 div.result-board-btn{
   padding-top:7vh;
   text-align: center;
+}
+div.result-board-btn>button{
+  font-size: 20px;
+  color: white;
+  border-radius: 5px;
+  background-color:#0D6EFD;
+  padding: 8px 14px;
+  border: none;
+  cursor: pointer;
+}
+div.result-board-btn>button:hover{
+  transform: scale(1.2);
+  transition: 200ms;
 }
 </style>

@@ -1,4 +1,4 @@
-scp dist/js/*.js tserver_doc:kob/acapp/
-scp dist/css/*.css tserver_doc:kob/acapp/
+scp dist/js/*.js ts_d:kob/acapp/
+scp dist/css/*.css ts_d:kob/acapp/
 
-ssh tserver_doc 'cd kob/acapp && ./rename.sh'
+ssh ts_d 'cd kob/acapp && ./rename.sh'

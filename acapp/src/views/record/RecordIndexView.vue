@@ -1,66 +1,69 @@
 <template>
   <ContentField>
-    <table class="table table-striped table-hover" style="text-align: center">
-      <thead>
-      <tr>
-        <th>玩家A</th>
-        <th>胜负</th>
-        <th>玩家B</th>
-        <th>胜负</th>
-        <th>对局时间</th>
-        <th>查看录像</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="record in records" :key="record.record.id">
-        <td>
-          <img :src="record.a_photo" alt="" class="record-user-photo">
-          &nbsp;&nbsp;
-          <span class="record-user-name">{{record.a_username}}</span>
-        </td>
-        <td>
-          <span style="color: red" v-if="record.record.loser ==='A'">负</span>
-          <span style="color: green" v-else-if="record.record.loser ==='B'">胜</span>
-          <span v-else>平局</span>
-        </td>
-        <td>
-          <img :src="record.b_photo" alt="" class="record-user-photo">
-          &nbsp;&nbsp;
-          <span class="record-user-name">{{record.b_username}}</span>
-        </td>
-        <td>
-          <span style="color: red" v-if="record.record.loser ==='B'">负</span>
-          <span style="color: green" v-else-if="record.record.loser ==='A'">胜</span>
-          <span v-else>平局</span>
-        </td>
-        <td>
-          <span>{{record.record.createTime}}</span>
-        </td>
-        <td>
-          <button @click="open_record_content(record.record)" type="button" class="btn btn-success" >查看</button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+    <div class="game-table">
+      <div>
+        <table style="text-align: center">
+          <thead>
+          <tr>
+            <th>玩家A</th>
+            <th>胜负</th>
+            <th>玩家B</th>
+            <th>胜负</th>
+            <th>对局时间</th>
+            <th>查看录像</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="record in records" :key="record.record.id">
+            <td class="game-table-user">
+              <img :src="record.a_photo" alt="" class="record-user-photo">
+              &nbsp;&nbsp;
+              <span class="record-user-name">{{record.a_username}}</span>
+            </td>
+            <td class="game-result">
+              <span style="color: red" v-if="record.record.loser ==='A'">负</span>
+              <span style="color: green" v-else-if="record.record.loser ==='B'">胜</span>
+              <span v-else>平局</span>
+            </td>
+            <td class="game-table-user">
+              <img :src="record.b_photo" alt="" class="record-user-photo">
+              &nbsp;&nbsp;
+              <span class="record-user-name">{{record.b_username}}</span>
+            </td>
+            <td class="game-result">
+              <span style="color: red" v-if="record.record.loser ==='B'">负</span>
+              <span style="color: green" v-else-if="record.record.loser ==='A'">胜</span>
+              <span v-else>平局</span>
+            </td>
+            <td>
+              <span>{{record.record.createTime}}</span>
+            </td>
+            <td class="game-btn">
+              <button @click="open_record_content(record.record)" type="button" >查看</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
 
-    <nav aria-label="Page navigation example">
-      <ul class="pagination" style="float: right">
-        <li class="page-item" @click="click_page(-2)">
-          <a class="page-link" href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <li :class="'page-item '+page.is_active" v-for="page in pages" :key="page.number" @click="click_page(page.number)">
-          <a class="page-link" href="#">{{page.number}}</a>
-        </li>
-        <li class="page-item" @click="click_page(-1)">
-          <a class="page-link" href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-
+        <nav aria-label="Page navigation example">
+          <ul style="float: right">
+            <li class="game-page-item" @click="click_page(-2)">
+              <a class="game-page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li :class="'game-page-item '+page.is_active" v-for="page in pages" :key="page.number" @click="click_page(page.number)">
+              <a class="game-page-link" href="#">{{page.number}}</a>
+            </li>
+            <li class="game-page-item" @click="click_page(-1)">
+              <a class="game-page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
   </ContentField>
 </template>
 
@@ -116,14 +119,10 @@ export default {
           Authorization: "Bearer "+store.state.user.token,
         },
         success(resp){
-          console.log(resp);
           records.value=resp.records;
           total_record=resp.records_count;
           update_pages();
         },
-        error(resp){
-          console.log(resp);
-        }
       })
     }
 
@@ -158,8 +157,7 @@ export default {
         b_steps:record.bsteps,
       });
       store.commit("updateRecordLoser",record.loser);
-
-      console.log(record);
+      store.commit("updateRouterName","record_content");
     }
 
     return{
@@ -176,5 +174,66 @@ export default {
 img.record-user-photo{
   width: 5vh;
   border-radius: 50%;
+}
+div.game-table{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+div.game-table table{
+  background-color: rgba(255,255,255,0.8);
+  border-radius: 5px;
+}
+.game-table-user{
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 7.5vw;
+}
+td{
+  width: 7.5vw;
+}
+th{
+  text-align: center;
+}
+.game-page-item{
+  display: inline-block;
+  padding: 8px 12px;
+  background-color: white;
+  border:1px solid #dee2e6;
+  cursor: pointer;
+  user-select: none;
+}
+.game-page-item:hover{
+  background-color: #E9ECEF;
+}
+.game-page-item.active{
+  background-color: #0d6efd;
+}
+.game-page-item.active>a{
+  color: white;
+}
+.game-page-link{
+  color: #0d6efd;
+  text-decoration: none;
+}
+.game-btn>button{
+  font-size: 20px;
+  color: white;
+  border-radius: 5px;
+  background-color:#198754;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
+.game-btn>button:hover{
+  transform: scale(1.2);
+  transition: 200ms;
+}
+.game-result{
+  font-weight: 600;
 }
 </style>

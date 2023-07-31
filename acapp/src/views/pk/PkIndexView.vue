@@ -46,13 +46,11 @@ export default {
       socket=new WebSocket(socketUrl);
 
       socket.onopen=()=>{
-        console.log("connected");
         store.commit("updateSocket",socket);
       }
 
       socket.onmessage =msg=>{
         const data=JSON.parse(msg.data);
-        console.log(data);
         if(data.event==="success-match"){
           store.commit("updateOpponent",{
             username:data.opponent_username,
@@ -64,13 +62,11 @@ export default {
           },200);
             store.commit("updateGameMap",data.game);
         }else if(data.event==="move"){
-          console.log(data);
           const game=store.state.pk.gameObject;
           const [snake0,snake1]=game.snakes;
           snake0.set_direction(data.a_direction);
           snake1.set_direction(data.b_direction);
         }else if(data.event==="result"){
-          console.log(data);
           const game=store.state.pk.gameObject;
           const [snake0,snake1]=game.snakes;
           if(data.loser==='all' || data.loser==='A'){
@@ -83,9 +79,6 @@ export default {
         }
       }
 
-      socket.onclose=()=>{
-        console.log("disconnected");
-      }
     });
 
     onUnmounted(()=>{

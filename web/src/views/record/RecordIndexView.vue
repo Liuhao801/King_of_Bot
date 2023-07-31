@@ -117,14 +117,10 @@ export default {
           Authorization: "Bearer "+store.state.user.token,
         },
         success(resp){
-          console.log(resp);
           records.value=resp.records;
           total_record=resp.records_count;
           update_pages();
         },
-        error(resp){
-          console.log(resp);
-        }
       })
     }
 
@@ -160,7 +156,6 @@ export default {
       });
       store.commit("updateRecordLoser",record.loser);
 
-      console.log(record);
       router.push({
         name:"record_content",
         params:{

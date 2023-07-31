@@ -65,7 +65,6 @@ export default {
     const click_match_btn=()=>{
       if(match_btn_info.value==='开始匹配') {
         match_btn_info.value = '取消';
-        console.log(select_bot.value);
         store.state.pk.socket.send(JSON.stringify({
           event:"start-matching",
           bot_id:select_bot.value,
@@ -128,10 +127,10 @@ div.user_photo{
 }
 div.user_photo>img{
   border-radius: 50%;
-  width:15vh;
+  width:16vh;
 }
 div.pk{
-  padding-top: 8vh;
+  padding-top: 5vh;
   text-align: center;
   font-size: 50px;
   font-weight: 600;
@@ -165,8 +164,12 @@ div.start_match_btn>button{
   color: white;
   border-radius: 5px;
   background-color:#0D6EFD;
-  padding: 8px 12px;
+  padding: 8px 14px;
   border: none;
   cursor: pointer;
+}
+div.start_match_btn>button:hover{
+  transform: scale(1.2);
+  transition: 200ms;
 }
 </style>

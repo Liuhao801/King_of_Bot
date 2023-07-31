@@ -302,7 +302,6 @@ export default {
     }
 
     const remove_bot = (bot)=>{
-      console.log(bot)
       $.ajax({
         url: 'https://app5801.acapp.acwing.com.cn/api/user/bot/remove/',
         type: 'post',
@@ -313,7 +312,6 @@ export default {
           Authorization: "Bearer " + store.state.user.token,
         },
         success(resp){
-          console.log(resp)
           if(resp.error_message==='success'){
             Modal.getInstance('#remove-bot-'+bot.id).hide();
             refresh_bots();
