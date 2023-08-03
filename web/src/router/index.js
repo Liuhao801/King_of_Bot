@@ -6,8 +6,8 @@ import RanklistIndexView from '../views/ranklist/RanklistIndexView.vue'
 import UserBotIndexView from '../views/user/bots/UserBotsIndexView.vue'
 import NotFound from '../views/error/NotFound.vue'
 import UserAccountLoginView from "../views/user/account/UserAccountLoginView";
-import UserAccountRegisterView from "@/views/user/account/UserAccountRegisterView";
-
+import UserAccountRegisterView from "../views/user/account/UserAccountRegisterView";
+import UserAccountAcWingView from "../views/user/account/UserAccountAcWingView"
 import store from '../store/index'
 
 const routes = [
@@ -52,17 +52,25 @@ const routes = [
     }
   },
   {
-    path:"/user/account/login",
-    name:"user_account_login",
+    path:"/user/account/login/",
+      name:"user_account_login",
     component:UserAccountLoginView,
     meta:{
       requestAuth:false,
     }
   },
   {
-    path:"/user/account/register",
+    path:"/user/account/register/",
     name:"user_account_register",
     component:UserAccountRegisterView,
+    meta:{
+      requestAuth:false,
+    }
+  },
+  {
+    path:"/user/account/acwing/web/receive_code/",
+    name:"user_account_acwing_web_receive_code",
+    component:UserAccountAcWingView,
     meta:{
       requestAuth:false,
     }
@@ -77,7 +85,7 @@ const routes = [
   },
   {
     path:"/404/",
-    name:"4040",
+    name:"404",
     component:NotFound,
     meta:{
       requestAuth:false,
