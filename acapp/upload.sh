@@ -1,4 +1,4 @@
-scp dist/js/*.js ts_d:kob/acapp/
-scp dist/css/*.css ts_d:kob/acapp/
+scp dist/js/*.js spring:kob/acapp/
+scp dist/css/*.css spring:kob/acapp/
 
-ssh ts_d 'cd kob/acapp && ./rename.sh'
+ssh spring 'cd kob/acapp && ./rename.sh'

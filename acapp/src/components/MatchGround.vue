@@ -24,8 +24,8 @@
         </div>
 
 
-        <div class="pk">
-          PK
+        <div class="pk_photo">
+          <img src="https://img1.imgtp.com/2023/08/04/svJXxj3r.png" alt="'">
         </div>
 
         <div>
@@ -79,7 +79,7 @@ export default {
 
     const refresh_bots =()=>{
       $.ajax({
-        url:'https://app5801.acapp.acwing.com.cn/api/user/bot/getlist/',
+        url:'https://app5804.acapp.acwing.com.cn/api/user/bot/getlist/',
         type:'get',
         headers:{
           Authorization: "Bearer "+store.state.user.token,
@@ -129,13 +129,12 @@ div.user_photo>img{
   border-radius: 50%;
   width:16vh;
 }
-div.pk{
-  padding-top: 5vh;
+div.pk_photo{
   text-align: center;
-  font-size: 50px;
-  font-weight: 600;
-  font-style: italic;
-  color: red;
+}
+div.pk_photo>img{
+  border-radius: 50%;
+  width:16vh;
 }
 div.user_name{
   text-align: center;

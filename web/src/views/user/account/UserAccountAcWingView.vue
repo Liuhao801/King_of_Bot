@@ -14,7 +14,7 @@ export default {
     const myRoute=useRoute();
 
     $.ajax({
-      url:'https://app5801.acapp.acwing.com.cn/api/user/account/acwing/web/receive_code/',
+      url:'https://app5804.acapp.acwing.com.cn/api/user/account/acwing/web/receive_code/',
       type:'get',
       data:{
         code:myRoute.query.code,

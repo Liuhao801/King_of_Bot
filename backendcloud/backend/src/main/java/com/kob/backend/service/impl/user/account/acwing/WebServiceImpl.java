@@ -22,9 +22,9 @@ import java.util.Random;
 
 @Service
 public class WebServiceImpl implements WebService {
-    private final static String appId="5801";
-    private final static String appSecret="053b98c39e234a70917e23b4b538cfc4";
-    private final static String redirectUrl="https://app5801.acapp.acwing.com.cn/user/account/acwing/web/receive_code/";
+    private final static String appId="5804";
+    private final static String appSecret="74e75892768042fda94f39ad1574ed7a";
+    private final static String redirectUrl="https://app5804.acapp.acwing.com.cn/user/account/acwing/web/receive_code/";
     private final static String applyAccessToken="https://www.acwing.com/third_party/api/oauth2/access_token/";
     private final static String getUserInfoUrl="https://www.acwing.com/third_party/api/meta/identity/getinfo/";
 
